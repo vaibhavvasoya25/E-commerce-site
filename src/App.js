@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Home from "./Components/Home";
+import React from "react";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+        <header className="head">
+          <h1>
+            <img
+              className="img"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHgungjpNLQ-C1VEiIzJfly1FNMzp4ygt9k5cCeNgddg&usqp=CAU&ec=48600113"
+              alt="img not found"
+            />{" "}
+            Shopi <b style={{ color: "red" }}>5</b>
+          </h1>
+          <hr />
+        </header>
+      </div>
+      <div className="App">
+        <Home />
+      </div>
+    </>
   );
 }
 
