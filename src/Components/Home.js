@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Modal from "./Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 // import { Link } from "react-router-dom";
 import {
   Button,
@@ -13,6 +15,7 @@ import {
   PopoverHeader,
   UncontrolledPopover,
 } from "reactstrap";
+import { Rating } from "@mui/material";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -24,6 +27,9 @@ function Home() {
       .catch((err) => console.log(err));
   }, []);
 
+  function handleSubmit(id) {
+    console.log(id);
+  }
   function handleClick() {}
 
   return (
@@ -33,11 +39,11 @@ function Home() {
           return (
             <>
               <div
-                key={product.id}
+                // key={product.id}
                 to="/"
                 className="add-to-cart"
                 data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
+                data-bs-target="#exampleModal"
               >
                 <span className="cart-count">{0}</span>
                 <img
@@ -47,44 +53,7 @@ function Home() {
               </div>
 
               {/* Modal  */}
-              <div
-                class="modal fade"
-                id="staticBackdrop"
-                data-bs-backdrop="static"
-                data-bs-keyboard="false"
-                tabindex="-1"
-                aria-labelledby="staticBackdropLabel"
-                aria-hidden="true"
-              >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                        Modal title
-                      </h1>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div class="modal-body">...</div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button type="button" class="btn btn-primary">
-                        Understood
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Modal value={product} />
 
               <div key={product.id} className="content">
                 <Card
@@ -100,7 +69,7 @@ function Home() {
                   <img className="cardImage" alt="Sample" src={product.image} />
                   <CardBody>
                     <div className="cardTitle">
-                      <div style={{ marginTop: "40px" }}>
+                      <div style={{ marginTop: "10px" }}>
                         <CardTitle tag="h5">
                           <span>{product.title}</span>
                         </CardTitle>
@@ -112,10 +81,21 @@ function Home() {
                       </span>
                     </CardSubtitle>
                     <CardText tag="h5">
-                      <i>rate: {product.rating.rate}</i>
+                      {/* <i>rate: {product.rating.rate}</i> */}
+                      <Rating
+                        name="half-rating-read"
+                        sx={{
+                          "& .MuiRating-iconFilled": {
+                            color: "yellow",
+                          },
+                        }}
+                        defaultValue={product.rating.rate}
+                        precision={0.5}
+                        readOnly
+                      />
                     </CardText>
                     <Button
-                      onClick={() => handleClick(console.log(product))}
+                      onClick={() => handleSubmit(product)}
                       block
                       color="success"
                     >
@@ -125,23 +105,42 @@ function Home() {
 
                     <div>
                       <Button
+                        // key={product.id}
                         id="UncontrolledPopover"
                         type="button"
                         color="warning"
                         block
-                        // onClick={() => handleClick(console.log(product))}
+                        onClick={(e) =>
+                          handleClick({
+                            ...product,
+                            title: e.target.value,
+                            description: e.target.value,
+                          })
+                        }
                       >
                         Description
                       </Button>
+                      {/* <div>{product.title}</div>
+                      <div>{product.description}</div> */}
                       <UncontrolledPopover
                         placement="bottom"
                         target="UncontrolledPopover"
                       >
-                        <PopoverHeader>
-                          <span>Description</span>
+                        <PopoverHeader style={{ backgroundColor: "black" }}>
+                          <div
+                            style={{ backgroundColor: "black", color: "white" }}
+                            onChange={handleClick}
+                          >
+                            {product.title}
+                          </div>
                         </PopoverHeader>
                         <PopoverBody>
-                          <span>No description yet..</span>
+                          <div
+                            style={{ color: "white" }}
+                            onChange={handleClick}
+                          >
+                            {product.description}
+                          </div>
                         </PopoverBody>
                       </UncontrolledPopover>
                     </div>

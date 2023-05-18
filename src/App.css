@@ -20,14 +20,15 @@
 }
 
 .items {
-  margin: 125px;
+  margin-top: 60px;
+  margin-left: 100px;
   display: flex;
   padding: 10px;
   flex-wrap: wrap;
 }
 
 .content {
-  margin: 25px;
+  margin: 35px;
   border: 1px solid balck;
   box-shadow: 1px 1px 8px 2px black;
 }
@@ -38,7 +39,7 @@
 }
 
 .cardTitle {
-  height: 130px;
+  height: 100px;
   align-items: center;
 }
 
