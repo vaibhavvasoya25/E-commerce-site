@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { IdContext, ImageContext, PriceContext, TitleContext } from "./Home";
 
-const Modal = (props) => {
+const Modal = () => {
+  const id = useContext(IdContext);
+  const image = useContext(ImageContext);
+  const title = useContext(TitleContext);
+  const price = useContext(PriceContext);
+
   function orderDone() {
-    alert("Order successfully Done.");
+    alert("Order Successfully Done.");
   }
   return (
     <>
@@ -42,7 +48,58 @@ const Modal = (props) => {
               style={{ backgroundColor: "white", color: "black" }}
               className="modal-body"
             >
-              <span>{props.title}</span>
+              <ul
+                style={{
+                  color: "black",
+                  backgroundColor: "white",
+                  listStyle: "none",
+                }}
+              >
+                <li
+                  style={{
+                    color: "black",
+                    backgroundColor: "#82cdcd",
+                    borderRadius: "10px",
+                  }}
+                >
+                  <span
+                    style={{
+                      color: "black",
+                      backgroundColor: "#82cdcd",
+                    }}
+                  >
+                    {id}.{" "}
+                  </span>
+                  <img
+                    style={{ height: "40px", width: "40px" }}
+                    src={image}
+                    alt="Img not Found"
+                  />{" "}
+                  <span
+                    style={{
+                      color: "black",
+                      backgroundColor: "#82cdcd",
+                      fontSize: "22px",
+                    }}
+                  >
+                    {title}
+                  </span>{" "}
+                  -{" "}
+                  <span
+                    style={{
+                      color: "black",
+                      backgroundColor: "#82cdcd",
+                      fontSize: "large",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    ${price}
+                  </span>{" "}
+                  <button type="button" className="btn btn-danger btn-sm">
+                    Remove
+                  </button>
+                </li>
+              </ul>
             </div>
             <div className="modal-footer">
               <button
